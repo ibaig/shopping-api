@@ -10,12 +10,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="automapper" Version="6.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="swashbuckle.aspnetcore" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shopping.Api.Common\Shopping.Api.Common.csproj" />
+    <ProjectReference Include="..\Shopping.Api.Domain\Shopping.Api.Domain.csproj" />
   </ItemGroup>
 
 </Project>

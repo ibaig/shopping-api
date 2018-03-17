@@ -1,7 +1,5 @@
-.vs/TestApp/v15/Server/sqlite3/storage.ide
-.vs/TestApp/v15/Server/sqlite3/db.lock
-.vs/TestApp/v15/.suo
-TestApp/bin/*
-TestApp/obj/*
+.vs/*
+*/bin/*
+*/obj/*
 *.user
 

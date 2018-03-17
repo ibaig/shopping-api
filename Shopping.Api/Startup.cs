@@ -8,8 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shopping.Api.Common;
+using Shopping.Api.Domain.Repositories;
+using Shopping.Api.Mappings;
+using Swashbuckle.AspNetCore.Swagger;
 
-namespace TestApp
+namespace Shopping.Api
 {
     public class Startup
     {
@@ -25,12 +29,24 @@ namespace TestApp
         {
             services.AddMvc();
 
+            //AppSettings
+            services.Configure<Settings>("Settings",Configuration);
+
+            
+            //Adding Swagger Documentation
             services.AddSwaggerGen(c =>
-            c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+            c.SwaggerDoc("v1", new Info
             {
-                Title = "My API",
+                Title = "Shopping API",
                 Version = "v1"
             }));
+
+
+            //Other registrations
+            services.AddSingleton<IUserRepository, UserRepository>();
+
+            //Automapper
+            AutomapperMappings.Initialize();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +57,10 @@ namespace TestApp
                 app.UseDeveloperExceptionPage();
             }
 
+            //Adding Swagger middleware
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"));
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shopping API"));
 
             app.UseMvc();
         }
