@@ -49,6 +49,7 @@ namespace Shopping.Api
             services.AddSingleton<IProductsClient, ProductsClient>();
             services.AddSingleton<IShopperHistoryClient, ShopperHistoryClient>();
             services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<ITrolleyCalculatorClient, TrolleyCalculatorClient>();
 
 
             services.AddSingleton<IProductSorter, LowPriceProductSorter>();

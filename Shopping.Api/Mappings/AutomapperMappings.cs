@@ -13,8 +13,10 @@ namespace Shopping.Api.Mappings
 
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Product, ProductDto>();
+                cfg.CreateMap<Specials, SpecialsDto>();
+                cfg.CreateMap<ProductQuantity, ProductQuantityDto>();
 
-                });
+            });
           
 
         }
