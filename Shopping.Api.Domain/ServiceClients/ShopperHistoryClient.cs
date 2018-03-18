@@ -6,41 +6,40 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.ServiceClients
 {
-    public interface IProductsClient
+    public interface IShopperHistoryClient
     {
-        Task<List<Product>> Get();
+        List<ShopperHistory> Get();
     }
 
-    public class ProductsClient : IProductsClient
+    public class ShopperHistoryClient : IShopperHistoryClient
     {
         private Settings _settings;
-        public ProductsClient(IOptions<Settings> options)
+        public ShopperHistoryClient(IOptions<Settings> options)
         {
             _settings = options.Value;
         }
-        public async Task<List<Product>> Get()
+        public List<ShopperHistory> Get()
         {
             try
             {
                 var httpClient = new HttpClient();
-                var url = $"{_settings?.ChallengeApi?.BaseUrl}/{_settings?.ChallengeApi?.ProductsEndpoint}?token={_settings.Token}";
+                var url = $"{_settings?.ChallengeApi?.BaseUrl}/{_settings?.ChallengeApi?.ShopperHistoryEndpoint}?token={_settings.Token}";
             var data = httpClient.GetAsync(url);
-                var result = await data.Result?.Content?.ReadAsStringAsync();
+                var result = data.Result?.Content?.ReadAsStringAsync()?.Result;
 
-                var products = JsonConvert.DeserializeObject<List<Product>>(result);
+                var ShopperHistorys = JsonConvert.DeserializeObject<List<ShopperHistory>>(result);
 
-                return products;
+                return ShopperHistorys;
             }
             catch (Exception ex)
             {
                 //Todo:Logging
                 //Todo: proper exception propagation and reporting
 
-                throw new Exception("Failed to get products from products resource", ex);
+                throw new Exception("Failed to get ShopperHistory from ShopperHistory resource", ex);
             }
            
         }

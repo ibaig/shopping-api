@@ -5,14 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.Services
 {
+    /// <summary>
+    /// Provides functionality to Work with products
+    /// </summary>
     public interface IProductService
     {
-        List<Product> Get(string sortOption);
+        Task<List<Product>> Get(string sortOption);
     }
 
+   
     public class ProductService : IProductService
     {
         private readonly IProductsClient _productsClient;
@@ -23,9 +28,9 @@ namespace Shopping.Api.Domain.Services
             this._productsClient = productsClient;
             this._productSorters = productSorters;
         }
-        public List<Product> Get(string sortOption)
+        public async Task<List<Product>> Get(string sortOption)
         {
-            var products = _productsClient.Get();
+            var products = await _productsClient.Get();
             if (products == null) return null;
 
             var sorter = GetSorter(sortOption);
@@ -33,6 +38,12 @@ namespace Shopping.Api.Domain.Services
             return sorter.Sort(products);
         }
 
+
+        /// <summary>
+        /// Get the right sorted based on the sortOption
+        /// </summary>
+        /// <param name="sortOption">the sortOption. If not supplied or is incorrect value, default will be low</param>
+        /// <returns></returns>
         private IProductSorter GetSorter(string sortOption)
         {
             ProductSorterType sorterType;

@@ -47,6 +47,7 @@ namespace Shopping.Api
             //Other registrations
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProductsClient, ProductsClient>();
+            services.AddSingleton<IShopperHistoryClient, ShopperHistoryClient>();
             services.AddSingleton<IProductService, ProductService>();
 
 

@@ -21,9 +21,9 @@ namespace Shopping.Api.Controllers
 
         // GET api/sort
         [HttpGet]
-        public List<ProductDto> Sort(string sortOption)
+        public async Task<List<ProductDto>> Sort(string sortOption)
         {
-            var products  = _productService.Get(sortOption);
+            var products  = await _productService.Get(sortOption);
 
             var productDtos = Mapper.Map<List<ProductDto>>(products);
 
