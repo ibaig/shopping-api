@@ -23,7 +23,7 @@ namespace Shopping.Api.Controllers
 
         // POST api/trolleryCalculator
         [HttpPost]
-        public decimal Post(TrolleyDataDto trolleyData)
+        public decimal Post([FromBody]TrolleyDataDto trolleyData)
         {
             var quantities = Mapper.Map<List<ProductQuantity>>(trolleyData?.Quantities);
 
