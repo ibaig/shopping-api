@@ -20,7 +20,7 @@ namespace Shopping.Api.Controllers
         {
             //Todo: Error handling 
             //Logging 
-
+            //Calling to repository directly. No logic so skipping layer.
             var user =  _userRepository?.Get();
             return Mapper.Map<UserDto>(user);
         }

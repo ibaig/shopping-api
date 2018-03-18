@@ -9,7 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shopping.Api.Common;
+using Shopping.Api.Domain.ProductSorter;
 using Shopping.Api.Domain.Repositories;
+using Shopping.Api.Domain.ServiceClients;
+using Shopping.Api.Domain.Services;
 using Shopping.Api.Mappings;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -30,9 +33,8 @@ namespace Shopping.Api
             services.AddMvc();
 
             //AppSettings
-            services.Configure<Settings>("Settings",Configuration);
+            services.Configure<Settings>(options => Configuration.GetSection("Settings").Bind(options));
 
-            
             //Adding Swagger Documentation
             services.AddSwaggerGen(c =>
             c.SwaggerDoc("v1", new Info
@@ -44,6 +46,16 @@ namespace Shopping.Api
 
             //Other registrations
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IProductsClient, ProductsClient>();
+            services.AddSingleton<IProductService, ProductService>();
+
+
+            services.AddSingleton<IProductSorter, LowPriceProductSorter>();
+            services.AddSingleton<IProductSorter, HighPriceProductSorter>();
+            services.AddSingleton<IProductSorter, NameAscendingProductSorter>();
+            services.AddSingleton<IProductSorter, NameDescendingProductSorter>();
+            services.AddSingleton<IProductSorter, RecommendedProductSorter>();
+
 
             //Automapper
             AutomapperMappings.Initialize();

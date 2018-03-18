@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Shopping.Api.Domain.Models;
 using Shopping.Api.Dtos;
+using System;
 
 namespace Shopping.Api.Mappings
 {
@@ -8,7 +9,14 @@ namespace Shopping.Api.Mappings
     {
         public static void Initialize()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
+            Mapper.Initialize(cfg => {
+
+                cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<Product, ProductDto>();
+
+                });
+          
+
         }
     }
 }
