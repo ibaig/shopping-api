@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Shopping.Api.Domain.ServiceClients;
+using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.ProductSorter
 {
@@ -15,9 +16,9 @@ namespace Shopping.Api.Domain.ProductSorter
         }
         public ProductSorterType Type => ProductSorterType.Recommended;
 
-        public List<Product> Sort(IEnumerable<Product> products)
+        public async Task<List<Product>> Sort(IEnumerable<Product> products)
         {
-            var shopperHistory = _shopperHistoryClient.Get();
+            var shopperHistory = await _shopperHistoryClient.Get();
             //extract products out
             var shopperHistoryProducts = shopperHistory.SelectMany(sh => sh.Products);
 

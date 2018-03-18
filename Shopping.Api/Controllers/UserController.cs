@@ -5,7 +5,7 @@ using Shopping.Api.Dtos;
 
 namespace Shopping.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;

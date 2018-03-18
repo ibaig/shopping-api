@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.ServiceClients
 {
     public interface IShopperHistoryClient
     {
-        List<ShopperHistory> Get();
+        Task<List<ShopperHistory>> Get();
     }
 
     public class ShopperHistoryClient : IShopperHistoryClient
@@ -21,14 +22,14 @@ namespace Shopping.Api.Domain.ServiceClients
         {
             _settings = options.Value;
         }
-        public List<ShopperHistory> Get()
+        public async Task<List<ShopperHistory>> Get()
         {
             try
             {
                 var httpClient = new HttpClient();
                 var url = $"{_settings?.ChallengeApi?.BaseUrl}/{_settings?.ChallengeApi?.ShopperHistoryEndpoint}?token={_settings.Token}";
-            var data = httpClient.GetAsync(url);
-                var result = data.Result?.Content?.ReadAsStringAsync()?.Result;
+                var data = await httpClient.GetAsync(url);
+                var result = await data?.Content?.ReadAsStringAsync();
 
                 var ShopperHistorys = JsonConvert.DeserializeObject<List<ShopperHistory>>(result);
 
@@ -41,7 +42,7 @@ namespace Shopping.Api.Domain.ServiceClients
 
                 throw new Exception("Failed to get ShopperHistory from ShopperHistory resource", ex);
             }
-           
+
         }
     }
 }

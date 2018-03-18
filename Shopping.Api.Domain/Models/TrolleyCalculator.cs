@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.Models
 {
@@ -20,7 +21,7 @@ namespace Shopping.Api.Domain.Models
         public List<Product> Products { get; set; }
         public List<Specials> Specials { get; set; }
      
-        public decimal LowestTotal(List<ProductQuantity> quantities)
+        public Task<decimal> LowestTotal(List<ProductQuantity> quantities)
         {
             return _trolleyCalculatorClient.LowestTotal(Products, Specials, quantities);
         }

@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.ServiceClients
 {
     public interface ITrolleyCalculatorClient
     {
-        decimal LowestTotal(List<Product> products, List<Specials> specials,
+        Task<decimal> LowestTotal(List<Product> products, List<Specials> specials,
             List<ProductQuantity> quantities);
     }
 
@@ -22,7 +23,7 @@ namespace Shopping.Api.Domain.ServiceClients
         {
             _settings = options.Value;
         }
-        public decimal LowestTotal(List<Product> products, List<Specials> specials,
+        public async Task<decimal> LowestTotal(List<Product> products, List<Specials> specials,
             List<ProductQuantity> quantities)
         {
             try
@@ -38,7 +39,7 @@ namespace Shopping.Api.Domain.ServiceClients
 
                 var content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
                 var data = httpClient.PostAsync(url, content);
-                var result = data.Result?.Content?.ReadAsStringAsync()?.Result;
+                var result = await data.Result?.Content?.ReadAsStringAsync();
 
                 return Convert.ToDecimal(result);
             }

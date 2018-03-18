@@ -1,6 +1,7 @@
 ﻿using Shopping.Api.Domain.Models;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Shopping.Api.Domain.ProductSorter
 {
@@ -8,9 +9,10 @@ namespace Shopping.Api.Domain.ProductSorter
     {
         public ProductSorterType Type => ProductSorterType.Low;
 
-        public List<Product> Sort(IEnumerable<Product> products)
+        public Task<List<Product>> Sort(IEnumerable<Product> products)
         {
-            return products.OrderBy(p => p.Price).ToList();
+            var result =  products.OrderBy(p => p.Price).ToList();
+            return Task.FromResult(result);
         }
     }
 }

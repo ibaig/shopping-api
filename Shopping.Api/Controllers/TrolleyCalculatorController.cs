@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Shopping.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [Route("api/trolleyTotal")]
+    [Route("[controller]")]
+    [Route("trolleyTotal")]
     public class TrolleyCalculatorController
     {
         private readonly ITrolleyCalculatorClient _trolleyCalculatorClient;
@@ -23,14 +23,15 @@ namespace Shopping.Api.Controllers
 
 
         // POST api/trolleryCalculator
+        // POST api/trolleryTotal
         [HttpPost]
-        public decimal Post([FromBody]TrolleyDataDto trolleyData)
+        public async Task<decimal> Post([FromBody]TrolleyDataDto trolleyData)
         {
             var quantities = Mapper.Map<List<ProductQuantity>>(trolleyData?.Quantities);
 
             var calculator = CreateTrolleyCalculator(trolleyData);
 
-            return calculator.LowestTotal(quantities);
+            return await calculator.LowestTotal(quantities);
         }
 
 

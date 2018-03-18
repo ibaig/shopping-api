@@ -35,7 +35,7 @@ namespace Shopping.Api.Domain.Services
 
             var sorter = GetSorter(sortOption);
 
-            return sorter.Sort(products);
+            return await sorter.Sort(products);
         }
 
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shopping.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class SortController
     {
         private readonly IProductService _productService;
