@@ -6,6 +6,8 @@ namespace Shopping.Api.Domain.ProductSorter
 {
     public class NameDescendingProductSorter : IProductSorter
     {
+        public ProductSorterType Type => ProductSorterType.Descending;
+
         public List<Product> Sort(IEnumerable<Product> products)
         {
             return products.OrderByDescending(p => p.Name).ToList();

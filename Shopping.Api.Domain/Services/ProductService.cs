@@ -4,6 +4,7 @@ using Shopping.Api.Domain.ServiceClients;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Shopping.Api.Domain.Services
 {
@@ -27,9 +28,21 @@ namespace Shopping.Api.Domain.Services
             var products = _productsClient.Get();
             if (products == null) return null;
 
-            _productSorters.
+            var sorter = GetSorter(sortOption);
 
-            return products;
+            return sorter.Sort(products);
+        }
+
+        private IProductSorter GetSorter(string sortOption)
+        {
+            ProductSorterType sorterType;
+
+            //default
+            if (!Enum.TryParse(sortOption,true, out sorterType))
+                sorterType = ProductSorterType.Low;
+
+            return _productSorters.FirstOrDefault(s => s.Type == sorterType);
+
         }
     }
 }

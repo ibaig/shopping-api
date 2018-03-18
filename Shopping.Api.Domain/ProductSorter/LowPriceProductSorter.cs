@@ -6,6 +6,8 @@ namespace Shopping.Api.Domain.ProductSorter
 {
     public class LowPriceProductSorter : IProductSorter
     {
+        public ProductSorterType Type => ProductSorterType.Low;
+
         public List<Product> Sort(IEnumerable<Product> products)
         {
             return products.OrderBy(p => p.Price).ToList();

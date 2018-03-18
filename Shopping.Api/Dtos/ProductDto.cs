@@ -9,6 +9,6 @@ namespace Shopping.Api.Dtos
         [DataMember(Name = "price")]
         public decimal Price { get; set; }
         [DataMember(Name = "quantity")]
-        public int Quantity { get; set; }
+        public float Quantity { get; set; }
     }
 }
