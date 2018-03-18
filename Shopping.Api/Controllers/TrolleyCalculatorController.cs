@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace Shopping.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Route("api/trolleyTotal")]
     public class TrolleyCalculatorController
     {
         private readonly ITrolleyCalculatorClient _trolleyCalculatorClient;
